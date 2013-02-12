@@ -16,6 +16,7 @@
 
 package com.google.zxing.client.android.camera;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.YuvImage;
@@ -37,10 +38,12 @@ final class PreviewCallback implements Camera.PreviewCallback {
   private final boolean useOneShotPreviewCallback;
   private Handler previewHandler;
   private int previewMessage;
+  private Context context;
 
-  PreviewCallback(CameraConfigurationManager configManager, boolean useOneShotPreviewCallback) {
+  PreviewCallback(CameraConfigurationManager configManager, boolean useOneShotPreviewCallback, Context context) {
     this.configManager = configManager;
     this.useOneShotPreviewCallback = useOneShotPreviewCallback;
+    this.context = context;
   }
 
   void setHandler(Handler previewHandler, int previewMessage) {
@@ -60,8 +63,8 @@ final class PreviewCallback implements Camera.PreviewCallback {
         Camera.Size size = parameters.getPreviewSize();
         YuvImage image = new YuvImage(data, parameters.getPreviewFormat(),
           size.width, size.height, null);
-        File file = new File(Environment.getExternalStorageDirectory()
-          .getPath() + "/panel.jpg");
+
+        File file = new File(context.getCacheDir().getPath() + "/panel.jpg");
         FileOutputStream filecon = new FileOutputStream(file);
         image.compressToJpeg(
           new Rect(0, 0, image.getWidth(), image.getHeight()), 90,

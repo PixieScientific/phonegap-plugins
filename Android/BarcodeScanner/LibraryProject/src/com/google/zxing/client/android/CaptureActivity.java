@@ -114,7 +114,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private CaptureActivityHandler handler;
   private ViewfinderView viewfinderView;
-  private TextView statusView;
   private View resultView;
   private Result lastResult;
   private boolean hasSurface;
@@ -157,7 +156,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     CameraManager.init(getApplication());
     viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
     resultView = findViewById(R.id.result_view);
-    statusView = (TextView) findViewById(R.id.status_view);
     handler = null;
     lastResult = null;
     hasSurface = false;
@@ -444,7 +442,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   // Put up our own UI for how to handle the decoded contents.
   private void handleDecodeInternally(Result rawResult, ResultHandler resultHandler, Bitmap barcode) {
-    statusView.setVisibility(View.GONE);
     viewfinderView.setVisibility(View.GONE);
     resultView.setVisibility(View.VISIBLE);
 
@@ -532,7 +529,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     // Since this message will only be shown for a second, just tell the user what kind of
     // barcode was found (e.g. contact info) rather than the full contents, which they won't
     // have time to read.
-    statusView.setText(getString(resultHandler.getDisplayTitle()));
 
     if (copyToClipboard && !resultHandler.areContentsSecure()) {
       ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -630,8 +626,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 
   private void resetStatusView() {
     resultView.setVisibility(View.GONE);
-    statusView.setText(R.string.msg_default_status);
-    statusView.setVisibility(View.VISIBLE);
     viewfinderView.setVisibility(View.VISIBLE);
     lastResult = null;
   }

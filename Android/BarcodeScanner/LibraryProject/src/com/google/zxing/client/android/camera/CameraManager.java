@@ -43,10 +43,10 @@ public final class CameraManager {
 
   private static final String TAG = CameraManager.class.getSimpleName();
 
-  private static final int MIN_FRAME_WIDTH = 240;
-  private static final int MIN_FRAME_HEIGHT = 240;
-  private static final int MAX_FRAME_WIDTH = 480;
-  private static final int MAX_FRAME_HEIGHT = 360;
+  private static final int MIN_FRAME_WIDTH = 400;
+  private static final int MIN_FRAME_HEIGHT = 400;
+  private static final int MAX_FRAME_WIDTH = 400;
+  private static final int MAX_FRAME_HEIGHT = 400;
 
   private static CameraManager cameraManager;
 
@@ -111,7 +111,7 @@ public final class CameraManager {
     // to run out of memory. We can't use SDK_INT because it was introduced in the Donut SDK.
     useOneShotPreviewCallback = Integer.parseInt(Build.VERSION.SDK) > 3; // 3 = Cupcake
 
-    previewCallback = new PreviewCallback(configManager, useOneShotPreviewCallback);
+    previewCallback = new PreviewCallback(configManager, useOneShotPreviewCallback, this.context);
     autoFocusCallback = new AutoFocusCallback();
   }
 

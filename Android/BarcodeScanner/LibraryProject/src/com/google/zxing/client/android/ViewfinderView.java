@@ -103,11 +103,16 @@ public final class ViewfinderView extends View {
 
       // Draw a red "laser scanner" line through the middle to show decoding is active
       paint.setColor(laserColor);
-      paint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
-      scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
-      int middle = frame.height() / 2 + frame.top;
-      canvas.drawRect(frame.left + 2, middle - 1, frame.right - 1, middle + 2, paint);
-      
+      int middleX = (width) / 2;
+      int middleY = (height) / 2;
+      canvas.save();
+      canvas.rotate(-90, middleX, middleY);
+      paint.setTextAlign(Paint.Align.CENTER);
+      paint.setTextSize(25);
+      canvas.drawText("Detecting Smart Diaper", middleX + 0, middleY - 250, paint);
+      canvas.drawText("Make sure the picture is in focus", middleX + 0, middleY - 220, paint);
+      canvas.restore();
+
       Rect previewFrame = CameraManager.get().getFramingRectInPreview();
       float scaleX = frame.width() / (float) previewFrame.width();
       float scaleY = frame.height() / (float) previewFrame.height();
