@@ -23,7 +23,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
@@ -95,22 +97,22 @@ public final class ViewfinderView extends View {
     } else {
 
       // Draw a two pixel solid black border inside the framing rect
-      paint.setColor(frameColor);
+      paint.setColor(Color.GREEN);
       canvas.drawRect(frame.left, frame.top, frame.right + 1, frame.top + 2, paint);
       canvas.drawRect(frame.left, frame.top + 2, frame.left + 2, frame.bottom - 1, paint);
       canvas.drawRect(frame.right - 1, frame.top, frame.right + 1, frame.bottom - 1, paint);
       canvas.drawRect(frame.left, frame.bottom - 1, frame.right + 1, frame.bottom + 1, paint);
 
       // Draw a red "laser scanner" line through the middle to show decoding is active
-      paint.setColor(laserColor);
+      paint.setColor(Color.GREEN);
       int middleX = (width) / 2;
       int middleY = (height) / 2;
       canvas.save();
       canvas.rotate(-90, middleX, middleY);
       paint.setTextAlign(Paint.Align.CENTER);
-      paint.setTextSize(25);
-      canvas.drawText("Detecting Smart Diaper", middleX + 0, middleY - 250, paint);
-      canvas.drawText("Make sure the picture is in focus", middleX + 0, middleY - 220, paint);
+      paint.setTextSize(35);
+      canvas.drawText("Detecting Smart Diaper", middleX + 0, middleY - 350, paint);
+      canvas.drawText("Make sure the picture is in focus", middleX + 0, middleY - 320, paint);
       canvas.restore();
 
       Rect previewFrame = CameraManager.get().getFramingRectInPreview();

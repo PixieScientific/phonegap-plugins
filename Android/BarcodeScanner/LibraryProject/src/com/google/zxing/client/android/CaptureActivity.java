@@ -428,7 +428,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
         drawLine(canvas, paint, points[0], points[1]);
         drawLine(canvas, paint, points[2], points[3]);
       } else {
-        paint.setStrokeWidth(10.0f);
+      paint.setStrokeWidth(10.0f);
         for (ResultPoint point : points) {
           canvas.drawPoint(point.getX(), point.getY(), paint);
         }
@@ -543,6 +543,14 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       intent.putExtra(Intents.Scan.RESULT, rawResult.toString());
       intent.putExtra(Intents.Scan.RESULT_FORMAT, rawResult.getBarcodeFormat().toString());
       byte[] rawBytes = rawResult.getRawBytes();
+      ResultPoint[] points = rawResult.getResultPoints();
+      String resultPointString = "?name=" ;
+      for (ResultPoint point : points) {
+    	float pointX = point.getX()+CameraManager.get().leftOffset;
+    	float pointY = point.getY()+CameraManager.get().topOffset;
+    	resultPointString += "(" + pointX + "," + pointY + ")";
+      }
+      intent.putExtra(Intents.Scan.RESULT_POINTS, resultPointString);
       if (rawBytes != null && rawBytes.length > 0) {
         intent.putExtra(Intents.Scan.RESULT_BYTES, rawBytes);
       }

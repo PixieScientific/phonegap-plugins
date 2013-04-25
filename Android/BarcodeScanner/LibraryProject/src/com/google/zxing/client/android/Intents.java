@@ -99,6 +99,12 @@ public final class Intents {
      * See Contents.Format for possible values.
      */
     public static final String RESULT_FORMAT = "SCAN_RESULT_FORMAT";
+      
+    /**
+    * Call intent.getStringExtra(RESULT_POINTS) to determine which barcode format was found.
+    * See Contents.Format for possible values.
+    */
+    public static final String RESULT_POINTS = "RESULT_POINTS";
 
     /**
      * Call intent.getByteArrayExtra(RESULT_BYTES) to get a {@link byte[]} of raw bytes in the

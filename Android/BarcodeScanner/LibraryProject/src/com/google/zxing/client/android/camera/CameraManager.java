@@ -45,8 +45,8 @@ public final class CameraManager {
 
   private static final int MIN_FRAME_WIDTH = 400;
   private static final int MIN_FRAME_HEIGHT = 400;
-  private static final int MAX_FRAME_WIDTH = 400;
-  private static final int MAX_FRAME_HEIGHT = 400;
+  private static final int MAX_FRAME_WIDTH = 540;
+  private static final int MAX_FRAME_HEIGHT = 540;
 
   private static CameraManager cameraManager;
 
@@ -66,6 +66,8 @@ public final class CameraManager {
   private final CameraConfigurationManager configManager;
   private Camera camera;
   private Rect framingRect;
+  public int topOffset;
+  public int leftOffset;
   private Rect framingRectInPreview;
   private boolean initialized;
   private boolean previewing;
@@ -241,8 +243,8 @@ public final class CameraManager {
       } else if (height > MAX_FRAME_HEIGHT) {
         height = MAX_FRAME_HEIGHT;
       }
-      int leftOffset = (screenResolution.x - width) / 2;
-      int topOffset = (screenResolution.y - height) / 2;
+      leftOffset = (screenResolution.x - width) / 2;
+      topOffset = (screenResolution.y - height) / 2;
       framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
       Log.d(TAG, "Calculated framing rect: " + framingRect);
     }
@@ -258,13 +260,21 @@ public final class CameraManager {
       Rect rect = new Rect(getFramingRect());
       Point cameraResolution = configManager.getCameraResolution();
       Point screenResolution = configManager.getScreenResolution();
-      rect.left = rect.left * cameraResolution.x / screenResolution.x;
-      rect.right = rect.right * cameraResolution.x / screenResolution.x;
-      rect.top = rect.top * cameraResolution.y / screenResolution.y;
-      rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
+      int pixelRatioX = cameraResolution.x/screenResolution.x;
+      int pixelRatioY = cameraResolution.y/screenResolution.y;
+      rect.left = rect.left * pixelRatioX;
+      rect.right = rect.right * pixelRatioX;
+      rect.top = rect.top * pixelRatioY;
+      rect.bottom = rect.bottom * pixelRatioY;
       framingRectInPreview = rect;
+      Log.d(TAG, "Calculated rect in preview: " + framingRectInPreview);
     }
     return framingRectInPreview;
+  }
+  
+  public Point getScreenResolution() {
+	Point screenResolution = configManager.getScreenResolution();
+	return screenResolution;
   }
 
   /**

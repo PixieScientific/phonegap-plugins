@@ -33,7 +33,7 @@ final class CameraConfigurationManager {
   private static final Pattern COMMA_PATTERN = Pattern.compile(",");
 
   private final Context context;
-  private Point screenResolution;
+  public Point screenResolution;
   private Point cameraResolution;
   private int previewFormat;
   private String previewFormatString;
