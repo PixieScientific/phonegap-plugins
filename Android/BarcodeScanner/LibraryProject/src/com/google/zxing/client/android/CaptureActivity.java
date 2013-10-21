@@ -550,6 +550,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     	float pointY = point.getY()+CameraManager.get().topOffset;
     	resultPointString += "(" + pointX + "," + pointY + ")";
       }
+      resultPointString += "?resultstring=";
+      String resultText = rawResult.getText();
+      int index = resultText.indexOf("?");
+      String textQuery = resultText.substring(index);
+      resultPointString += textQuery;
       intent.putExtra(Intents.Scan.RESULT_POINTS, resultPointString);
       if (rawBytes != null && rawBytes.length > 0) {
         intent.putExtra(Intents.Scan.RESULT_BYTES, rawBytes);

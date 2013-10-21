@@ -111,8 +111,8 @@ public final class ViewfinderView extends View {
       canvas.rotate(-90, middleX, middleY);
       paint.setTextAlign(Paint.Align.CENTER);
       paint.setTextSize(35);
-      canvas.drawText("Detecting Smart Diaper", middleX + 0, middleY - 350, paint);
-      canvas.drawText("Make sure the picture is in focus", middleX + 0, middleY - 320, paint);
+      canvas.drawText("Match the square to the panel", middleX + 0, middleY - 350, paint);
+      canvas.drawText("and wait a few seconds for the beep", middleX + 0, middleY - 320, paint);
       canvas.restore();
 
       Rect previewFrame = CameraManager.get().getFramingRectInPreview();
