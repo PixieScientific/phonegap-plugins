@@ -54,12 +54,20 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageButton;
+import android.widget.ToggleButton;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+import android.content.Context;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -127,7 +135,11 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   private HistoryManager historyManager;
   private InactivityTimer inactivityTimer;
   private BeepManager beepManager;
-
+  /*private Camera camera;
+  private final Context context = this;
+  
+  private ToggleButton button;
+  */
   private final DialogInterface.OnClickListener aboutListener =
       new DialogInterface.OnClickListener() {
     public void onClick(DialogInterface dialogInterface, int i) {
@@ -144,9 +156,45 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
   public Handler getHandler() {
     return handler;
   }
-
+  /*
+  @Override
+  protected void onStop() {
+   super.onStop();
+   if (camera != null) {
+    camera.release();
+   }
+  }
+*/
   @Override
   public void onCreate(Bundle icicle) {
+	  
+	  
+	 /* 
+	 imageButton = (ImageButton) findViewById(R.id.flashButton);
+	 imageButton.setOnClickListener(new View.OnClickListener() {
+		 public void onClick(View v) {
+			 Parameters p = camera.getParameters();
+			    List<String> supportedFlashModes =p.getSupportedFlashModes();
+
+			    if (p.getFlashMode() != "FLASH_MODE_TORCH")
+			    {
+			        if(supportedFlashModes!= null)
+			        {
+			            if(supportedFlashModes.contains(Parameters.FLASH_MODE_TORCH))
+			            {
+			                p.setFlashMode(Parameters.FLASH_MODE_TORCH);
+			            }
+			        }
+			        //CaptureActivity.flashLightON=true;
+			    }
+			    else
+			    {
+			        p.setFlashMode(Parameters.FLASH_MODE_OFF);
+			    };
+			    camera.setParameters(p);
+	     }
+	 });  
+	  */
     super.onCreate(icicle);
 
     Window window = getWindow();
@@ -163,9 +211,69 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
     historyManager.trimHistory();
     inactivityTimer = new InactivityTimer(this);
     beepManager = new BeepManager(this);
+    
+    /*button = (ToggleButton) findViewById(R.id.togglebutton);
+    
+    final PackageManager pm = context.getPackageManager();
+    if(!isCameraSupported(pm)){
+     AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+     alertDialog.setTitle("No Camera");
+        alertDialog.setMessage("The device's doesn't support camera.");
+        alertDialog.setButton(RESULT_OK, "OK", new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int which) { 
+             Log.e("err", "The device's doesn't support camera.");
+            }
+         });
+     alertDialog.show();
+    }
+    //camera = Camera.open();*/
+   }
+   /*public void onToggleClicked(View view) {
+    final Parameters p = camera.getParameters();
+    List<String> supportedFlashModes =p.getSupportedFlashModes();
+    if(supportedFlashModes.contains(Parameters.FLASH_MODE_TORCH))
+    {
+    	boolean on = ((ToggleButton) view).isChecked();
+    	if (on) {
+    		Log.i("info", "torch is turn on!");
+    		p.setFlashMode(Parameters.FLASH_MODE_TORCH);
+    		camera.setParameters(p);
+    		//camera.startPreview();
+    	} else {
+    		Log.i("info", "torch is turn off!");
+    		p.setFlashMode(Parameters.FLASH_MODE_OFF);
+    		camera.setParameters(p);
+    		//camera.stopPreview();
+    	}
+    }else{
+    	button.setChecked(false);
+    	AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+    	alertDialog.setTitle("No Camera Flash");
+        alertDialog.setMessage("The device's camera doesn't support flash.");
+        alertDialog.setButton(RESULT_OK, "OK", new DialogInterface.OnClickListener() {
+        	public void onClick(final DialogInterface dialog, final int which) { 
+             Log.e("err", "The device's camera doesn't support flash.");
+            }
+         });
+     alertDialog.show();
+    }
+   }
+   
+   private boolean isFlashSupported(PackageManager packageManager){ 
+    // if device support camera flash?
+    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+     return true;
+    } 
+    return false;
+   }
 
-    // showHelpOnFirstLaunch();
-  }
+   private boolean isCameraSupported(PackageManager packageManager){
+    // if device support camera?
+    if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+     return true;
+    } 
+    return false;
+   }*/
 
   @Override
   protected void onResume() {

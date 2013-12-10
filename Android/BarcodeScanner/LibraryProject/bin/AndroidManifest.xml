@@ -24,8 +24,8 @@ versionName is 2.31, 2.4, or 3.0. -->
           android:versionCode="71"
           android:installLocation="auto">
   <!-- We require Cupcake (Android 1.5) or later, but are really targeting Donut. -->
-  <uses-sdk android:minSdkVersion="3"
-            android:targetSdkVersion="4"/>
+  <uses-sdk android:minSdkVersion="8"
+            android:targetSdkVersion="17"/>
   <!-- Donut-specific flags which allow us to run on any dpi screens. -->
   <supports-screens android:xlargeScreens="true"
                     android:largeScreens="true"

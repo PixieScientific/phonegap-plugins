@@ -19,10 +19,13 @@ package com.google.zxing.client.android.camera;
 import android.content.Context;
 import android.graphics.Point;
 import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
 import android.os.Build;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.regex.Pattern;
 
@@ -69,8 +72,15 @@ final class CameraConfigurationManager {
     Log.d(TAG, "Setting preview size: " + cameraResolution);
     parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
     setFlash(parameters);
+    /*List<String> supportedFlashModes =parameters.getSupportedFlashModes();
+    if(supportedFlashModes.contains(Parameters.FLASH_MODE_TORCH))
+    {
+        parameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+    }*/
     setZoom(parameters);
+    //camera.cancelAutoFocus();
     camera.setParameters(parameters);
+    //camera.autoFocus();
   }
 
   Point getCameraResolution() {

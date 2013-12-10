@@ -1,2 +1,2 @@
-/Users/tarek/Documents/workspace_2/LibraryProject/bin/AndroidManifest.xml : \
-/Users/tarek/Documents/workspace_2/LibraryProject/AndroidManifest.xml \
+/Users/tarek/Workspace/android_workspace/LibraryProject/bin/AndroidManifest.xml : \
+/Users/tarek/Workspace/android_workspace/LibraryProject/AndroidManifest.xml \
