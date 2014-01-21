@@ -63,7 +63,10 @@ final class PreviewCallback implements Camera.PreviewCallback {
         Camera.Size size = parameters.getPreviewSize();
         YuvImage image = new YuvImage(data, parameters.getPreviewFormat(),
           size.width, size.height, null);
-
+		/*String filename = "/panel_";
+		long unixTime = System.currentTimeMillis() / 1000L;
+		String currenttime = String.valueOf(unixTime);
+		filename += currenttime + ".jpeg";*/
         File file = new File(context.getCacheDir().getPath() + "/panel.jpg");
         FileOutputStream filecon = new FileOutputStream(file);
         image.compressToJpeg(

@@ -663,6 +663,9 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
       int index = resultText.indexOf("?");
       String textQuery = resultText.substring(index);
       resultPointString += textQuery;
+	  long unixTime = System.currentTimeMillis() / 1000L;
+	  String timestamp = String.valueOf(unixTime);
+	  resultPointString += "?timestamp=" + timestamp;
       intent.putExtra(Intents.Scan.RESULT_POINTS, resultPointString);
       if (rawBytes != null && rawBytes.length > 0) {
         intent.putExtra(Intents.Scan.RESULT_BYTES, rawBytes);
