@@ -45,8 +45,8 @@ public final class CameraManager {
 
   private static final int MIN_FRAME_WIDTH = 400;
   private static final int MIN_FRAME_HEIGHT = 400;
-  private static final int MAX_FRAME_WIDTH = 540;
-  private static final int MAX_FRAME_HEIGHT = 540;
+  private static final int MAX_FRAME_WIDTH = 720;
+  private static final int MAX_FRAME_HEIGHT = 720;
 
   private static CameraManager cameraManager;
 
@@ -242,6 +242,14 @@ public final class CameraManager {
         height = MIN_FRAME_HEIGHT;
       } else if (height > MAX_FRAME_HEIGHT) {
         height = MAX_FRAME_HEIGHT;
+      }
+      Log.d(TAG, "HEIGHT: " + height);
+      Log.d(TAG, "WIDTH: " + width);
+      
+      if(width<height){
+    	  height=width;
+      } else if(height<width){
+    	  width = height;
       }
       leftOffset = (screenResolution.x - width) / 2;
       topOffset = (screenResolution.y - height) / 2;

@@ -28,6 +28,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -97,22 +98,22 @@ public final class ViewfinderView extends View {
     } else {
 
       // Draw a two pixel solid black border inside the framing rect
-      paint.setColor(Color.GREEN);
+      paint.setColor(Color.rgb(51,188,255));
       canvas.drawRect(frame.left, frame.top, frame.right + 1, frame.top + 2, paint);
       canvas.drawRect(frame.left, frame.top + 2, frame.left + 2, frame.bottom - 1, paint);
       canvas.drawRect(frame.right - 1, frame.top, frame.right + 1, frame.bottom - 1, paint);
       canvas.drawRect(frame.left, frame.bottom - 1, frame.right + 1, frame.bottom + 1, paint);
 
       // Draw a red "laser scanner" line through the middle to show decoding is active
-      paint.setColor(Color.GREEN);
+      paint.setColor(Color.rgb(51,188,255));
       int middleX = (width) / 2;
       int middleY = (height) / 2;
       canvas.save();
       canvas.rotate(-90, middleX, middleY);
       paint.setTextAlign(Paint.Align.CENTER);
-      paint.setTextSize(35);
-      canvas.drawText("Match the square to the panel", middleX + 0, middleY - 350, paint);
-      canvas.drawText("and wait a few seconds for the beep", middleX + 0, middleY - 320, paint);
+      paint.setTextSize(width/32);
+      canvas.drawText("Match the square to the panel", middleX + 0, middleY - frame.width() + 60, paint);
+      canvas.drawText("and wait a few seconds for the beep", middleX + 0, middleY - frame.width() + 120, paint);
       canvas.restore();
 
       Rect previewFrame = CameraManager.get().getFramingRectInPreview();
